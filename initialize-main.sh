@@ -1,12 +1,17 @@
 #!/bin/bash
 
+set -e  # Exit on error
+
 # Script to initialize the main branch and configure remote for chat-clinic-hub
 
 echo "Initializing main branch for chat-clinic-hub repository..."
 
 # Configure the remote to point to chat-clinic-hub
 echo "Step 1: Configuring remote origin..."
-git remote remove origin 2>/dev/null || true
+if git remote get-url origin &>/dev/null; then
+    echo "Removing existing remote origin..."
+    git remote remove origin
+fi
 git remote add origin https://github.com/joaotiheci/chat-clinic-hub.git
 
 # Rename current branch to main
